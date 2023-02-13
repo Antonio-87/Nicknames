@@ -39,3 +39,8 @@ test('more than 3 digits', () => {
     const valid = new Validator('bodrichok2353_-live');
     expect(valid.validatorUsername()).toBeFalsy();
 });
+
+test('not digits', () => {
+    const valid = new Validator('bodrichok_-live');
+    expect(valid.validatorUsername()).toBeFalsy();
+});
