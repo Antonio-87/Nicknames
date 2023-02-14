@@ -1,46 +1,16 @@
 import Validator from '../app';
 
-test('valid username', () => {
-    const valid = new Validator('bodrichok23_53-live');
-    expect(valid.validatorUsername()).toBeTruthy();
-});
-
-test('123.......', () => {
-    const valid = new Validator('123bodrichok23_53-live');
-    expect(valid.validatorUsername()).toBeFalsy();
-});
-
-test('.......123', () => {
-    const valid = new Validator('bodrichok23_53-live123');
-    expect(valid.validatorUsername()).toBeFalsy();
-});
-
-test('-.......', () => {
-    const valid = new Validator('-bodrichok23_53-live');
-    expect(valid.validatorUsername()).toBeFalsy();
-});
-
-test('.......-', () => {
-    const valid = new Validator('bodrichok23_53-live-');
-    expect(valid.validatorUsername()).toBeFalsy();
-});
-
-test('_.......', () => {
-    const valid = new Validator('_bodrichok23_53-live');
-    expect(valid.validatorUsername()).toBeFalsy();
-});
-
-test('......._', () => {
-    const valid = new Validator('bodrichok23_53-live_');
-    expect(valid.validatorUsername()).toBeFalsy();
-});
-
-test('more than 3 digits', () => {
-    const valid = new Validator('bodrichok2353_-live');
-    expect(valid.validatorUsername()).toBeFalsy();
-});
-
-test('not digits', () => {
-    const valid = new Validator('bodrichok_-live');
-    expect(valid.validatorUsername()).toBeFalsy();
+test.each([
+    { data: 'bodrichok23_53-live', expected: true },
+    { data: '123bodrichok23_53-live', expected: false },
+    { data: 'bodrichok23_53-live123', expected: false },
+    { data: '-bodrichok23_53-live', expected: false },
+    { data: 'bodrichok23_53-live-', expected: false },
+    { data: '_bodrichok23_53-live', expected: false },
+    { data: 'bodrichok23_53-live_', expected: false },
+    { data: 'bodrichok_2353-live', expected: false },
+    { data: 'bodrichok_-live', expected: false },
+])('valid username', ({ data, expected }) => {
+    const valid = new Validator(data);
+    expect(valid.validatorUsername()).toEqual(expected);
 });
